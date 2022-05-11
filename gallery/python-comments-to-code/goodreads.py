@@ -6,12 +6,11 @@ import json
 # import plotting library from matplotlib
 import matplotlib.pyplot as plt
 
-def get_list_of_titles() :
+def get_list_of_titles():
     """Ask the user for a list of books, one per line."""
     titles = []
     while True:
-        new_title = input("Title: ")
-        if new_title:
+        if new_title := input("Title: "):
             titles.append(new_title)
         else:
             break
@@ -20,11 +19,11 @@ def get_list_of_titles() :
 # Get the GoodReads API key from the environment
 key = os.environ.get("GOODREADS_API_KEY")
 
-def scrape_goodreads(titles) :
+def scrape_goodreads(titles):
     """Get the average rating of each book from GoodReads, and return a list of floats."""
     ratings = []
     for title in titles:
-        url = "https://www.goodreads.com/book/title.xml?key={}&title={}".format(key, title)
+        url = f"https://www.goodreads.com/book/title.xml?key={key}&title={title}"
         response = requests.get(url)
         soup = BeautifulSoup(response.text, "html.parser")
         rating = soup.find("average_rating").text

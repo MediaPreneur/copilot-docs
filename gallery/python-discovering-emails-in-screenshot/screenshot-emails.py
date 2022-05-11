@@ -13,15 +13,13 @@ import re
 # convert image to text
 from pytesseract import image_to_string
 
-def get_emails() :
+def get_emails():
     """Take a screen shot, convert it to text, and return a list of emails"""
     # Take a screenshot
     screenshot = ImageGrab.grab()
     # Convert to text
     text = image_to_string(screenshot)
-    # Parse text for email addresses
-    emails = re.findall(r'[\w\.-]+@[\w\.-]+', text)
-    return emails
+    return re.findall(r'[\w\.-]+@[\w\.-]+', text)
 
 def validate(addresses) :
     """Validate each address with an API, and return a list of valid addresses"""
